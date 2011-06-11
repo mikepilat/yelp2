@@ -27,6 +27,10 @@ module Yelp
       @hash["mobile_url"]
     end
     
+    def image_url
+      @hash["image_url"]
+    end
+    
     def review_count
       @hash["review_count"]
     end
