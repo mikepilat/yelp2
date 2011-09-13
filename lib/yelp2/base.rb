@@ -1,6 +1,5 @@
 require 'addressable/uri'
 require 'json'
-require 'pry'
 
 module Yelp
   
