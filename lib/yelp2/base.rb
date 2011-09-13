@@ -50,8 +50,8 @@ module Yelp
       
       res = @access_token.get(uri.to_s)
       hash = JSON.parse(res.body)
-      if hash.nil?
-        "No Results"
+      if hash["error"]
+        "Sorry, #{hash["error"]["text"]}"
       else
         hash["businesses"].collect {|b| Yelp::Business.new(b)} 
       end
