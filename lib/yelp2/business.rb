@@ -1,3 +1,4 @@
+require 'ostruct'
 
 module Yelp
 
@@ -6,43 +7,23 @@ module Yelp
     def initialize(hash)
       @hash = hash
     end
-    
+
     def id
-      @hash["id"]
+      @hash['id']
     end
-    
-    def name
-      @hash["name"]
+
+    def method_missing(method, *args, &block)
+      @hash[method.to_s] || super
     end
-    
-    def phone
-      @hash["phone"]
-    end
-    
-    def url
-      @hash["url"]
-    end
-    
-    def mobile_url
-      @hash["mobile_url"]
-    end
-    
-    def image_url
-      @hash["image_url"]
-    end
-    
-    def review_count
-      @hash["review_count"]
-    end
-    
+
     def location
-      Yelp::Location.new(@hash["location"])
+      Yelp::Location.new(@hash['location'])
     end
 
     def ==(other)
-      id == other.id 
+      id == other.id
     end
-    
+
   end
   
 end
