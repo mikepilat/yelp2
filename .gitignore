@@ -2,3 +2,4 @@
 .bundle
 Gemfile.lock
 pkg/*
+api_config.rb

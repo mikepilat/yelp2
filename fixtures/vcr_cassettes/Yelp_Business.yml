@@ -1,0 +1,32 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://api.yelp.com:80/v2/search?limit=1&location=chicago&term=Fountainhead
+    body: 
+    headers: 
+      user-agent: 
+      - OAuth gem v0.4.5
+      authorization: 
+      - OAuth oauth_consumer_key="YELP_CONSUMER_KEY", oauth_nonce="ppgbq8t4fOFDXumkVoHe9bSxDCANLW9BwgZRq9cI", oauth_signature="G2x%2F2gIPACgyvCQkUEeIpvzmKaE%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318836388", oauth_token="brcLhVnHuaKm-3jtxX0ehHFbR7u-shYk", oauth_version="1.0"
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      content-type: 
+      - application/json
+      x-node: 
+      - web30, api_com
+      server: 
+      - Apache
+      date: 
+      - Mon, 17 Oct 2011 07:26:28 GMT
+      content-length: 
+      - "1547"
+      vary: 
+      - Accept-Encoding,User-Agent
+      x-proxied: 
+      - lb1
+    body: "{\"region\":{\"span\":{\"latitude_delta\":0.0,\"longitude_delta\":0.0},\"center\":{\"latitude\":41.961482699999998,\"longitude\":-87.678609100000003}},\"total\":19,\"businesses\":[{\"rating\":3.5,\"mobile_url\":\"http://m.yelp.com/biz/F3kfPxdaTIrv49-kItDvBA\",\"rating_img_url\":\"http://media3.ak.yelpcdn.com/static/201012161235323114/img/ico/stars/stars_3_half.png\",\"review_count\":299,\"name\":\"Fountainhead\",\"rating_img_url_small\":\"http://media3.ak.yelpcdn.com/static/201012163952475669/img/ico/stars/stars_small_3_half.png\",\"url\":\"http://www.yelp.com/biz/fountainhead-chicago\",\"phone\":\"7736978204\",\"snippet_text\":\"Gastropub swoon. I know, I know... these places have been popping up all over for the last few years, but this one was simply perfect for me. Here's why:\\n\\n-...\",\"image_url\":\"http://s3-media4.ak.yelpcdn.com/bphoto/2vblTFxqO4LPBGT5hT5CJg/ms.jpg\",\"snippet_image_url\":\"http://s3-media2.ak.yelpcdn.com/photo/FS-6XFWgEfOUcFc155h26w/ms.jpg\",\"display_phone\":\"+1-773-697-8204\",\"rating_img_url_large\":\"http://media1.ak.yelpcdn.com/static/201012161161255655/img/ico/stars/stars_large_3_half.png\",\"id\":\"fountainhead-chicago\",\"categories\":[[\"Gastropubs\",\"gastropubs\"],[\"Beer, Wine & Spirits\",\"beer_and_wine\"],[\"Pubs\",\"pubs\"]],\"location\":{\"city\":\"Chicago\",\"display_address\":[\"1970 W Montrose Ave\",\"North Center\",\"Chicago, IL 60640\"],\"geo_accuracy\":8,\"neighborhoods\":[\"North Center\",\"Ravenswood\"],\"postal_code\":\"60640\",\"country_code\":\"US\",\"address\":[\"1970 W Montrose Ave\"],\"coordinate\":{\"latitude\":41.961482699999998,\"longitude\":-87.678609100000003},\"state_code\":\"IL\"}}]}"
+    http_version: "1.1"
