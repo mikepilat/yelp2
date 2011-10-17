@@ -22,5 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency('oauth', '>= 0.4.4')
   s.add_dependency('addressable', '>= 2.2.6')
   s.add_dependency('json', '>= 1.5.1')
-  
+
+  s.add_development_dependency('rspec', '>= 2.7.0')
+  s.add_development_dependency('vcr', '>= 1.11.3')
+  s.add_development_dependency('fakeweb', '>= 1.3.0')
 end

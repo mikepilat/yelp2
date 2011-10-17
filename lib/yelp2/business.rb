@@ -38,6 +38,10 @@ module Yelp
     def location
       Yelp::Location.new(@hash["location"])
     end
+
+    def ==(other)
+      id == other.id 
+    end
     
   end
   

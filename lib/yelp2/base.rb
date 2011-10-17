@@ -9,48 +9,58 @@ module Yelp
     
     SEARCH_PATH = "#{API_PATH}/search"
     
-    # Passing in the appropriate values, have access to the yelp api
+    # Initializes the base object through which you access the Yelp API. 
     #
-    # consumer_key    - A value used by the Consumer to identify itself to the Service Provider.
-    # consumer_secret - A secret used by the Consumer to establish ownership of the Consumer Key.
-    # token           - A value used by the Consumer to obtain authorization from the User, and exchanged for an Access Token.
-    # token_secret    - A secret used by the Consumer to establish ownership of a given Token.
+    # Obtain API access here: http://www.yelp.com/developers/getting_started/api_access
     #
-    # Returns nothing.
+    # +consumer_key+    - OAuth2 Consumer Key 
+    # +consumer_secret+ - OAuth2 Consumer Secret
+    # +token+           - OAuth2 Access Token
+    # +token_secret+    - OAuth2 Access Secret
     def initialize(consumer_key, consumer_secret, token, token_secret)
       @consumer = OAuth::Consumer.new(consumer_key, consumer_secret, {:site => API_HOST})
       @access_token = OAuth::AccessToken.new(@consumer, token, token_secret)
     end
     
 
-    # Search for a given optional term and locations
+    # Search for businesses near a given location
     #
-    # term          - (Optional) Search term.
-    # location      - Location to search
-    # location_type - Location Hash continaing one of three search types.
+    # +term+ - The search term
+    # +location+ - The location to search
     #
-    # Example
-    #   search("dinner", "san+francisco", :location)
-    #   search("dinner", "34.720,-112.299", :ll)
+    #   search_by_location("dinner", "san+francisco")
     #
-    # Returns hash of businesses found.
-    def search(term, location)
-      raise ArgumentError, "Location must be a hash and of size 1" unless location.is_a?(Hash) || location.size != 1
+    # Returns an array of Yelp::Business objects
+    def search_with_location(term, location, options={})
+      search_businesses(term, options.merge(:location => location))
+    end
+
+    # Search for businesses near the given coordinates
+    #
+    # +term+ - The search term
+    # +latitute+ - The latitude in decimal degrees
+    # +longitude+ - The longitude in decimal degrees
+    # 
+    def search_with_coordinates(term, latitude, longitude, options={})
+      search_businesses(term, options.merge(:ll=>"#{latitude},#{longitude}"))
+    end
+
+    private 
+    
+    def search_businesses(term, options)
       uri = Addressable::URI.new(  
         :scheme => "http",
         :host => API_HOST,
-        :path => SEARCH_PATH
-      )
+        :path => SEARCH_PATH)
      
       uri.query_values = {
-        :term => term
-      }.merge(location)
-      
-      
+        :term => term,
+      }.merge(options.inject({}){|h,(k,v)| h[k] = v.to_s; h})
+
       res = @access_token.get(uri.to_s)
       hash = JSON.parse(res.body)
       if hash["error"]
-        "Sorry, #{hash["error"]["text"]}"
+        raise hash["error"]["text"]
       else
         hash["businesses"].collect {|b| Yelp::Business.new(b)} 
       end
